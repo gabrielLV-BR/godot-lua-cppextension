@@ -14,6 +14,16 @@ Pra compilar a extensão, é necessário ter:
 - Um compilador C++;
 - A ferramenta de build `Scons`;
 
+Na pasta raíz da extensão, rodar o comando
+
+```bash
+scons platform=%PLATFORM%
+```
+
+Onde *%PLATFORM%* corresponde ao sistema operacional desejado. As opções disponíveis são `windows`, `linux`, `maxcos`, `android` e `ios`. Para mais detalhes sobre as plataformas suportadas, consulte a [documentação sobre GDExtension do Godot](https://docs.godotengine.org/en/stable/tutorials/scripting/gdextension/index.html).
+
+Após o termino da compilação (pode demorar um pouco), a extensão estará pronta para ser utilizada e os arquivos estarão dispostos na raíz do projeto.
+
 # Como usar
 
 Para utilizar essa extensão, é necessário que o arquivo `luaconsole.gdextension` e os arquivos `libluaconsole` estejam presentes na pasta `bin/luaconsole/` em relação à pasta raíz do projeto Godot.
