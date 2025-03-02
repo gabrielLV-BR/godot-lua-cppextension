@@ -1,0 +1,8 @@
+**.dll
+**.so
+**.exp
+**.lib
+**.obj
+
+.sconsign.dblite
+lua_static.lib
