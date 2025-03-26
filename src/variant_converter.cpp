@@ -55,6 +55,17 @@ bool LuaIntegration::push_to_lua(lua_State *lua, Variant variant) {
     case Variant::Type::BOOL:
         lua_pushboolean(lua, (bool) variant);
         break;
+    case Variant::Type::ARRAY: {
+        Array arr = variant;  
+        lua_newtable(lua);    
+
+        for (int i = 0; i < arr.size(); i++) {
+            lua_pushinteger(lua, i + 1); 
+            push_to_lua(lua, arr[i]);    
+            lua_settable(lua, -3);        
+        }
+        break;
+    }
     default:
         return false;
     }
