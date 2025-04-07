@@ -43,6 +43,7 @@ public:
     void run_script(godot::String script_source);
     void bind_method(godot::Callable callable, godot::TypedArray<int> arguments);
     void reset();
+    void register_method_in_lua(const std::string& name);
 
     // Unexposed methods
 

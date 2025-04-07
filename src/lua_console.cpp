@@ -42,11 +42,7 @@ void LuaConsole::reset() {
     lua_setfield(_lua, LUA_REGISTRYINDEX, LuaConsole::KEY);
 
     for (const auto &[name, callback] : _method_map) {
-        const auto* name_str = name.c_str();
-
-        lua_pushstring(_lua, name_str);
-        lua_pushcclosure(_lua, &_method_callback, 1);
-        lua_setglobal(_lua, name_str);
+        register_method_in_lua(name);
     }
 
     _dirty = false;
@@ -64,6 +60,20 @@ void LuaConsole::bind_method(Callable callable, TypedArray<int> arguments) {
     }
 
     _method_map[method_name] = bound_method;
+
+    if (_lua != nullptr) {
+        register_method_in_lua(method_name);
+    }
+    else {
+        _dirty = true;
+    }
+}
+
+void LuaConsole::register_method_in_lua(const std::string& name) {
+    const auto* name_str = name.c_str();
+    lua_pushstring(_lua, name_str);
+    lua_pushcclosure(_lua, &_method_callback, 1);
+    lua_setglobal(_lua, name_str);
 }
 
 void LuaConsole::run_script(String script_source) {
