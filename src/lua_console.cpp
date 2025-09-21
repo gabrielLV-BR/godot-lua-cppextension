@@ -81,9 +81,9 @@ void LuaConsole::run_script(String script_source) {
         reset();
     }
 
-    const char *source = script_source.utf8();
+    auto source = std::string(script_source.utf8());
 
-    if (luaL_dostring(_lua, source) != LUA_OK) {
+    if (luaL_dostring(_lua, source.c_str()) != LUA_OK) {
         const char *error_message = lua_tostring(_lua, -1);
         emit_signal(Signals::ERROR, String(error_message));
     }
